@@ -1,1 +1,13 @@
+# Normalize all text files to use LF in the repository
 * text=auto
+
+# Explicitly set JSON and asset files to use LF
+*.json text eol=lf
+*.asset text eol=lf
+*.txt text eol=lf
+
+# Set binary files to avoid line-ending normalization
+*.png binary
+*.jpg binary
+*.unitypackage binary
+
