@@ -6,8 +6,7 @@ public class ClothFolding : MonoBehaviour
     private Mesh mesh;
 
     public KeyCode foldKey = KeyCode.F; // Key to trigger the fold
-    private bool firstFoldDone = false; // Track the first fold state
-    private bool secondFoldDone = false; // Track the second fold state
+    private int foldStage = 0; // Track the current fold stage
 
     void Start()
     {
@@ -26,36 +25,85 @@ public class ClothFolding : MonoBehaviour
         // Check for the fold key press (in this case, F key)
         if (Input.GetKeyDown(foldKey))
         {
-            if (!firstFoldDone)
-            {
-                FirstFold(); // Perform the first fold (90 degrees along Z-axis)
-                firstFoldDone = true;
-            }
-            else if (!secondFoldDone)
-            {
-                SecondFold(); // Perform the second fold (90 degrees along Z-axis)
-                secondFoldDone = true;
-            }
+            PerformFold();
         }
     }
 
-    void FirstFold()
+    void PerformFold()
     {
         if (mesh != null)
         {
             Vector3[] vertices = mesh.vertices;
 
-            // First fold: Rotate vertices around the Z-axis
-            for (int i = 0; i < vertices.Length; i++)
+            if (foldStage == 0)
             {
-                if (vertices[i].x > 0) // Right side fold upwards by 90 degrees
+                // First fold: Fold the two sides upwards by 90 degrees
+                for (int i = 0; i < vertices.Length; i++)
                 {
-                    vertices[i] = RotateVertexAroundZAxis(vertices[i], 90f);
+                    if (vertices[i].x > 0) // Right side fold upwards
+                    {
+                        vertices[i] = RotateVertexAroundZAxis(vertices[i], 90f);
+                    }
+                    else if (vertices[i].x < 0) // Left side fold upwards
+                    {
+                        vertices[i] = RotateVertexAroundZAxis(vertices[i], -90f);
+                    }
                 }
-                else if (vertices[i].x < 0) // Left side fold upwards by 90 degrees
+
+                Debug.Log("Performed the first fold.");
+            }
+            else if (foldStage == 1)
+            {
+                // Second fold: Fold the two halves on top of each other
+                for (int i = 0; i < vertices.Length; i++)
                 {
-                    vertices[i] = RotateVertexAroundZAxis(vertices[i], -90f);
+                    if (vertices[i].y > 0) // Fold the right side down
+                    {
+                        vertices[i] = RotateVertexAroundZAxis(vertices[i], 90f);
+                    }
+                    else if (vertices[i].y < 0) // Fold the left side down
+                    {
+                        vertices[i] = RotateVertexAroundZAxis(vertices[i], -90f);
+                    }
                 }
+
+                Debug.Log("Performed the second fold.");
+            }
+            else if (foldStage == 2)
+            {
+                // Third fold: Fold both sides symmetrically upwards along the Z-axis (create U-shape above grey)
+                float midZ = (mesh.bounds.min.z + mesh.bounds.max.z) / 2; // Find the middle Z position for symmetry
+                for (int i = 0; i < vertices.Length; i++)
+                {
+                    if (vertices[i].z > midZ) // Fold the far edge upwards
+                    {
+                        vertices[i] = RotateVertexAroundXAxis(vertices[i], 270f); // Rotate far edge up (above grey area)
+                    }
+                    else if (vertices[i].z < midZ) // Fold the near edge upwards
+                    {
+                        vertices[i] = RotateVertexAroundXAxis(vertices[i], -270f); // Rotate near edge up (above grey area)
+                    }
+                }
+
+                Debug.Log("Performed the third fold (U-shape above grey).");
+            }
+            else if (foldStage == 3)
+            {
+                // Fourth fold: Fold the U-shaped ends on top of each other to make a cube, centered on grey
+                float midX = (mesh.bounds.min.x + mesh.bounds.max.x) / 2; // Adjust fold to ensure the final cube is centered
+                for (int i = 0; i < vertices.Length; i++)
+                {
+                    if (vertices[i].x > midX) // Fold one part down
+                    {
+                        vertices[i] = RotateVertexAroundXAxis(vertices[i], 90f); // Rotate down to center
+                    }
+                    else if (vertices[i].x < midX) // Fold the other part down
+                    {
+                        vertices[i] = RotateVertexAroundXAxis(vertices[i], -90f); // Rotate down to center
+                    }
+                }
+
+                Debug.Log("Performed the fourth fold (centered cube).");
             }
 
             // Apply the modified vertices back to the mesh
@@ -63,35 +111,7 @@ public class ClothFolding : MonoBehaviour
             mesh.RecalculateNormals(); // Ensure proper shading
             meshFilter.mesh = mesh;
 
-            Debug.Log("Performed the first fold.");
-        }
-    }
-
-    void SecondFold()
-    {
-        if (mesh != null)
-        {
-            Vector3[] vertices = mesh.vertices;
-
-            // Second fold: Fold the halves on top of each other
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                if (vertices[i].y > 0) // Fold the right side down
-                {
-                    vertices[i] = RotateVertexAroundZAxis(vertices[i], 90f);
-                }
-                else if (vertices[i].y < 0) // Fold the left side down
-                {
-                    vertices[i] = RotateVertexAroundZAxis(vertices[i], -90f);
-                }
-            }
-
-            // Apply the modified vertices back to the mesh
-            mesh.vertices = vertices;
-            mesh.RecalculateNormals();
-            meshFilter.mesh = mesh;
-
-            Debug.Log("Performed the second fold.");
+            foldStage++; // Move to the next fold stage
         }
     }
 
@@ -107,5 +127,19 @@ public class ClothFolding : MonoBehaviour
         float newY = vertex.x * sin + vertex.y * cos;
 
         return new Vector3(newX, newY, vertex.z); // Return the new vertex position
+    }
+
+    // Rotate the vertex around the X-axis to simulate folding
+    Vector3 RotateVertexAroundXAxis(Vector3 vertex, float angle)
+    {
+        float rad = angle * Mathf.Deg2Rad; // Convert angle to radians
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+
+        // Apply rotation around the X-axis
+        float newY = vertex.y * cos - vertex.z * sin;
+        float newZ = vertex.y * sin + vertex.z * cos;
+
+        return new Vector3(vertex.x, newY, newZ); // Return the new vertex position
     }
 }
