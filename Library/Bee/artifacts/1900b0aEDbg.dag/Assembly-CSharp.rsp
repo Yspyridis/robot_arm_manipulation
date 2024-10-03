@@ -403,6 +403,7 @@
 -analyzer:"D:/unity/6000.0.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/unity/6000.0.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"D:/unity/6000.0.5f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
+"Assets/ClothFolding.cs"
 "Assets/FingerController.cs"
 "Assets/ForeArmController.cs"
 "Assets/UpperArmController.cs"
