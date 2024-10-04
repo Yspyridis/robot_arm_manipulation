@@ -65,6 +65,7 @@
     <Analyzer Include="D:\unity\6000.0.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Dummy.cs" />
     <Compile Include="Assets\UpperArmController.cs" />
     <Compile Include="Assets\FingerController.cs" />
     <Compile Include="Assets\ForeArmController.cs" />
