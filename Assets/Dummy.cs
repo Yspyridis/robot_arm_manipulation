@@ -5,25 +5,35 @@ public class Dummy : MonoBehaviour
 {
     public Cloth cloth;
 
-    IEnumerator delayed(float seconds) {
+    IEnumerator Delayed(float seconds)
+    {
         yield return new WaitForSeconds(seconds);
 
+        var coefficients = cloth.coefficients;
 
-        var c = cloth.coefficients;
-        cloth.coefficients[0].maxDistance = float.MaxValue;
-        cloth.coefficients = c;
+        for (int i = 0; i < coefficients.Length; i++)
+        {
+            coefficients[i].maxDistance = 100f;
+        }
 
-         Debug.Log(c.GetHashCode());
+        cloth.coefficients = coefficients;
+
+        Debug.Log("maxDistance increased to allow more movement.");
     }
 
-    private void Start() {
+    private void Start()
+    {
+        var coefficients = cloth.coefficients;
 
-        var c = cloth.coefficients;
-        c[0].maxDistance = 0.1f;
-        cloth.coefficients = c;
+        for (int i = 0; i < coefficients.Length; i++)
+        {
+            coefficients[i].maxDistance = 3f;
+        }
 
-        Debug.Log(c.GetHashCode());
+        cloth.coefficients = coefficients;
 
-        StartCoroutine(delayed(2));
+        Debug.Log("Initial maxDistance set to 3f to constrain cloth movement.");
+
+        StartCoroutine(Delayed(2f));
     }
 }
