@@ -23,12 +23,12 @@ public class FingerController : MonoBehaviour
 
     public void RotateFingerLeft()
     {
-        Finger.Rotate(Vector3.up, rotationAmount * Time.deltaTime);
+        Finger.Rotate(Vector3.forward, rotationAmount * Time.deltaTime);
     }
 
     public void RotateFingerRight()
     {
-        Finger.Rotate(Vector3.up, -rotationAmount * Time.deltaTime);
+        Finger.Rotate(Vector3.forward, -rotationAmount * Time.deltaTime);
     }
 
     public void OnPressFingerLeft()
