@@ -69,7 +69,9 @@
     <Compile Include="Assets\UpperArmController.cs" />
     <Compile Include="Assets\FingerController.cs" />
     <Compile Include="Assets\ForeArmController.cs" />
+    <Compile Include="Assets\GripController.cs" />
     <Compile Include="Assets\ClothFolding.cs" />
+    <Compile Include="Assets\FlyCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -405,7 +405,9 @@
 "Assets/ClothFolding.cs"
 "Assets/Dummy.cs"
 "Assets/FingerController.cs"
+"Assets/FlyCamera.cs"
 "Assets/ForeArmController.cs"
+"Assets/GripController.cs"
 "Assets/UpperArmController.cs"
 -langversion:9.0
 /deterministic
