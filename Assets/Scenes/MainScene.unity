@@ -309,6 +309,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7529803}
   m_CullTransparentMesh: 1
+--- !u!1 &11104143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1372706040947271890, guid: 586f977226af849f9a2be7ea54741aa3, type: 3}
+  m_PrefabInstance: {fileID: 1921958306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &11104144 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8268030843841757924, guid: 586f977226af849f9a2be7ea54741aa3, type: 3}
+  m_PrefabInstance: {fileID: 1921958306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &11104147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11104143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24761936cd00f6e4cb57a00c2b0278bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grip: {fileID: 11104144}
+  rotationAmount: -5
+  returnSpeed: 5
 --- !u!1 &63768865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,9 +1081,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grip: {fileID: 389180797}
-  movementSpeed: 10
-  leftLimit: -0.13
-  rightLimit: -0.02
+  rotationAmount: -5
+  returnSpeed: 5
 --- !u!1 &415773891
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,6 +3307,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11104147}
+          m_TargetAssemblyTypeName: GripController, Assembly-CSharp
+          m_MethodName: OnPressGripRight
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 3
     callback:
       m_PersistentCalls:
@@ -3290,6 +3326,18 @@ MonoBehaviour:
         - m_Target: {fileID: 389180800}
           m_TargetAssemblyTypeName: GripController, Assembly-CSharp
           m_MethodName: OnReleaseGripLeft
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11104147}
+          m_TargetAssemblyTypeName: GripController, Assembly-CSharp
+          m_MethodName: OnReleaseGripRight
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5109,6 +5157,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1068945466183028737, guid: 586f977226af849f9a2be7ea54741aa3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 389180800}
+    - targetCorrespondingSourceObject: {fileID: 1372706040947271890, guid: 586f977226af849f9a2be7ea54741aa3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 11104147}
   m_SourcePrefab: {fileID: 100100000, guid: 586f977226af849f9a2be7ea54741aa3, type: 3}
 --- !u!1 &1948913611
 GameObject:
