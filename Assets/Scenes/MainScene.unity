@@ -3523,7 +3523,7 @@ Transform:
   m_GameObject: {fileID: 1139353506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: -9.89, z: -1.794}
+  m_LocalPosition: {x: -0.12, y: -9.43, z: -1.794}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3879,7 +3879,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308868727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3934,7 +3934,7 @@ Transform:
   m_GameObject: {fileID: 1308868727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9679, y: -12.66, z: -1.94}
+  m_LocalPosition: {x: -0.9679, y: -11.54, z: -1.94}
   m_LocalScale: {x: 9.652956, y: 1.1322, z: 5.711711}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4467,13 +4467,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5900200544920728307, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_TagString
-      value: RobotTrigger
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8623294319529122964, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_TagString
       value: RobotTrigger
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7698852039925105236, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5303,7 +5304,7 @@ Transform:
   m_GameObject: {fileID: 1710875685}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: -10.2, z: -1.7}
+  m_LocalPosition: {x: -0.7, y: -10.96, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5322,7 +5323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -9.81
-  damping: 0.99
+  damping: 3.08
+  springK: 20.1
+  maxVelocity: 0.5
   boxCollider: {fileID: 1308868729}
 --- !u!1 &1818016816
 GameObject:
