@@ -3844,29 +3844,13 @@ GameObject:
   - component: {fileID: 1308868731}
   - component: {fileID: 1308868730}
   - component: {fileID: 1308868729}
-  - component: {fileID: 1308868728}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: BoxCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1308868728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1308868727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2237d431779a45a478cb1477d9229542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  friction: 1
-  boxSize: {x: 5.73, y: 0.89, z: 5.73}
-  offset: {x: 0, y: 0, z: 0}
+  m_IsActive: 1
 --- !u!65 &1308868729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3950,8 +3934,8 @@ Transform:
   m_GameObject: {fileID: 1308868727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.86, y: -11.49, z: -1.57}
-  m_LocalScale: {x: 5.2341776, y: 1, z: 5.252448}
+  m_LocalPosition: {x: -0.9679, y: -12.66, z: -1.94}
+  m_LocalScale: {x: 9.652956, y: 1.1322, z: 5.711711}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5319,7 +5303,7 @@ Transform:
   m_GameObject: {fileID: 1710875685}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: -11.029, z: -1.7}
+  m_LocalPosition: {x: -0.7, y: -10.2, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5337,6 +5321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683666580db10eb499f8ab09625fe903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravity: -9.81
+  damping: 0.99
+  boxCollider: {fileID: 1308868729}
 --- !u!1 &1818016816
 GameObject:
   m_ObjectHideFlags: 0

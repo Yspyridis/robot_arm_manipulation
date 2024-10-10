@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\CapsuleCollisionConstraint.cs" />
     <Compile Include="Assets\Scripts\ClothRender.cs" />
     <Compile Include="Assets\Scripts\ClothPhysics.cs" />
+    <Compile Include="Assets\PlaneGravity.cs" />
     <Compile Include="Assets\Scripts\SphereCollisionConstraint.cs" />
     <Compile Include="Assets\ClothFolding.cs" />
     <Compile Include="Assets\TouchTest.cs" />

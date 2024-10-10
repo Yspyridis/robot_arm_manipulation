@@ -407,6 +407,7 @@
 "Assets/FingerController.cs"
 "Assets/FlyCamera.cs"
 "Assets/ForeArmController.cs"
+"Assets/PlaneGravity.cs"
 "Assets/Scripts/BoxCollisionConstraint.cs"
 "Assets/Scripts/CapsuleCollisionConstraint.cs"
 "Assets/Scripts/CCloth.cs"
