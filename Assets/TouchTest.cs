@@ -149,10 +149,10 @@ public class TouchTest : MonoBehaviour
     }
 
     // Get the bottom Y position of the box collider (the table's surface height)
-    private float GetBoxBottomY()
-    {
-        return boxCollider.bounds.max.y; // The Y coordinate of the top face of the box
-    }
+    // private float GetBoxBottomY()
+    // {
+    //     return boxCollider.bounds.max.y; // The Y coordinate of the top face of the box
+    // }
 
     // Trigger function for detecting when the robot gripper's trigger touches the plane
     void OnTriggerEnter(Collider other)
