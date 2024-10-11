@@ -71,14 +71,6 @@ public class TouchTest : MonoBehaviour
 
                     // Update the vertex position
                     vertices[i] += velocities[i] * Time.deltaTime;
-
-                    // Ensure the vertex does not fall below the box collider
-                    // worldPosVertex = transform.TransformPoint(vertices[i]);
-                    // if (worldPosVertex.y < GetBoxBottomY())
-                    // {
-                    //     vertices[i] = transform.InverseTransformPoint(new Vector3(worldPosVertex.x, GetBoxBottomY(), worldPosVertex.z));
-                    //     velocities[i] = Vector3.zero; // Stop further movement
-                    // }
                 }
             }
         }
@@ -147,12 +139,6 @@ public class TouchTest : MonoBehaviour
 
         return isWithinXBounds && isWithinZBounds;
     }
-
-    // Get the bottom Y position of the box collider (the table's surface height)
-    // private float GetBoxBottomY()
-    // {
-    //     return boxCollider.bounds.max.y; // The Y coordinate of the top face of the box
-    // }
 
     // Trigger function for detecting when the robot gripper's trigger touches the plane
     void OnTriggerEnter(Collider other)
