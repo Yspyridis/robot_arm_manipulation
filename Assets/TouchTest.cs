@@ -188,25 +188,25 @@ public class TouchTest : MonoBehaviour
     {
         Debug.Log("Object exited trigger: " + other.gameObject.name);
 
-        // // Reset the pinned vertex and transform
-        // pinnedTransform = null;
+        // Reset the pinned vertex and transform
+        pinnedTransform = null;
 
-        // if (pinnedVertexIndex >= 0)
-        // {
-        //     // Reset the pinned vertex to its original position
-        //     vertices[pinnedVertexIndex] = originalVertices[pinnedVertexIndex];
-        //     pinnedVertexIndex = -1; // Unpin the vertex
-        // }
+        if (pinnedVertexIndex >= 0)
+        {
+            // Reset the pinned vertex to its original position
+            vertices[pinnedVertexIndex] = originalVertices[pinnedVertexIndex];
+            pinnedVertexIndex = -1; // Unpin the vertex
+        }
 
-        // // Reset velocities
-        // for (int i = 0; i < vertices.Length; i++)
-        // {
-        //     velocities[i] = Vector3.zero;
-        // }
+        // Reset velocities
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            velocities[i] = Vector3.zero;
+        }
 
-        // // Update the mesh to reset the pinned vertex position
-        // planeMesh.vertices = vertices;
-        // planeMesh.RecalculateBounds();
-        // planeMesh.RecalculateNormals();
+        // Update the mesh to reset the pinned vertex position
+        planeMesh.vertices = vertices;
+        planeMesh.RecalculateBounds();
+        planeMesh.RecalculateNormals();
     }
 }
