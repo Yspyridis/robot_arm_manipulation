@@ -13,9 +13,9 @@ public class TouchTest : MonoBehaviour
     private Vector3[] originalVertices; // Store the original positions of the vertices
 
     public float gravity = -9.81f; // Gravity value
-    public float damping = 0.95f; // Damping to slow down motion over time
-    public float springK = 0.5f; // Spring constant for spring behavior between neighbors
-    public float maxVelocity = 0.5f; // Cap the maximum velocity
+    public float damping = 0.98f; // Adjusted damping to avoid too much slowdown
+    public float springK = 2.0f; // Increased spring constant for stronger coupling between vertices
+    public float maxVelocity = 0.75f; // Increased max velocity to allow for more responsive motion
 
     public Collider boxCollider; // Reference to the box collider
 
@@ -61,8 +61,11 @@ public class TouchTest : MonoBehaviour
         velocities[pinnedVertexIndex] = velocityOfPinned; // Update velocity
         vertices[pinnedVertexIndex] = localPoint; // Update the position
 
-        // DEBUG: Log the velocity of the pinned vertex
-        Debug.Log($"Pinned Vertex {pinnedVertexIndex} velocity: {velocityOfPinned}");
+        // Apply spring forces on neighboring vertices of the pinned vertex
+        foreach (int neighborIndex in vertexNeighbors[pinnedVertexIndex])
+        {
+            ApplySpringForce(pinnedVertexIndex, neighborIndex);
+        }
     }
 
     void ApplyGravityAndSpringForces()
@@ -160,13 +163,8 @@ public class TouchTest : MonoBehaviour
     // Trigger function for detecting when the robot gripper's trigger touches the plane
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Object entered trigger: " + other.gameObject.name);
-
         Vector3 contactPoint = other.ClosestPoint(transform.position);
-        Debug.Log("Contact point: " + contactPoint);
-
         PinClosestVertex(contactPoint, other.transform);
-        Debug.Log("Pinned vertex index: " + pinnedVertexIndex);
     }
 
     void PinClosestVertex(Vector3 contactPoint, Transform gripperTransform)
@@ -193,15 +191,7 @@ public class TouchTest : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("Object exited trigger: " + other.gameObject.name);
-
-        // Reset the pinned transform but DO NOT reset the pinned vertex position
         pinnedTransform = null;
-
-        // Unpin the vertex and allow it to fall under the influence of gravity and spring forces
-        pinnedVertexIndex = -1;
-
-        // The vertex will now be handled by gravity and the spring forces.
-        // No need to reset positions, let physics simulate the new folded shape naturally.
+        pinnedVertexIndex = -1; // Let the vertex behave naturally after release.
     }
 }
