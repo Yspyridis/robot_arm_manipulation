@@ -10,6 +10,8 @@ public class TouchTest : MonoBehaviour
     private int pinnedVertexIndex = -1; // To store the index of the pinned vertex
     private Transform pinnedTransform; // The transform of the object to follow (gripper)
 
+    private Vector3[] originalVertices; // Store the original positions of the vertices
+
     public float gravity = -9.81f; // Gravity value
     public float damping = 0.95f; // Damping to slow down motion over time
     public float springK = 0.5f; // Spring constant for spring behavior between neighbors
@@ -17,11 +19,14 @@ public class TouchTest : MonoBehaviour
 
     public Collider boxCollider; // Reference to the box collider
 
+    private float minDistance;
+
     void Start()
     {
         // Get the Mesh from the plane
         planeMesh = GetComponent<MeshFilter>().mesh;
         vertices = planeMesh.vertices; // Get the vertices once at the start
+        originalVertices = planeMesh.vertices.Clone() as Vector3[]; // Store the original vertex positions
         velocities = new Vector3[vertices.Length]; // Initialize velocities for each vertex
         vertexNeighbors = FindVertexNeighbors(); // Build the neighbor map
     }
@@ -36,6 +41,8 @@ public class TouchTest : MonoBehaviour
         {
             // Convert gripper's world position to local space of the plane
             Vector3 localPoint = transform.InverseTransformPoint(pinnedTransform.position);
+
+            // Set the pinned vertex to follow the gripper's local position
             vertices[pinnedVertexIndex] = localPoint;
         }
 
@@ -156,10 +163,11 @@ public class TouchTest : MonoBehaviour
     void PinClosestVertex(Vector3 contactPoint, Transform gripperTransform)
     {
         int closestVertexIndex = 0;
-        float minDistance = Mathf.Infinity;
+        minDistance = Mathf.Infinity;
 
         for (int i = 0; i < vertices.Length; i++)
         {
+            // Convert the vertex to world space for proper distance calculation
             Vector3 worldPosVertex = transform.TransformPoint(vertices[i]);
             float distance = Vector3.Distance(contactPoint, worldPosVertex);
 
@@ -178,8 +186,27 @@ public class TouchTest : MonoBehaviour
     // Trigger function for detecting when the robot gripper's trigger leaves the plane
     void OnTriggerExit(Collider other)
     {
-        // Reset the pinned vertex when the gripper leaves
-        pinnedVertexIndex = -1;
-        pinnedTransform = null;
+        Debug.Log("Object exited trigger: " + other.gameObject.name);
+
+        // // Reset the pinned vertex and transform
+        // pinnedTransform = null;
+
+        // if (pinnedVertexIndex >= 0)
+        // {
+        //     // Reset the pinned vertex to its original position
+        //     vertices[pinnedVertexIndex] = originalVertices[pinnedVertexIndex];
+        //     pinnedVertexIndex = -1; // Unpin the vertex
+        // }
+
+        // // Reset velocities
+        // for (int i = 0; i < vertices.Length; i++)
+        // {
+        //     velocities[i] = Vector3.zero;
+        // }
+
+        // // Update the mesh to reset the pinned vertex position
+        // planeMesh.vertices = vertices;
+        // planeMesh.RecalculateBounds();
+        // planeMesh.RecalculateNormals();
     }
 }

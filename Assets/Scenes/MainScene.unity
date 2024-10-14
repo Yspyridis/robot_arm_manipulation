@@ -4825,6 +4825,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 7850891454271734342, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8623294319529122964, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_TagString
       value: RobotTrigger
