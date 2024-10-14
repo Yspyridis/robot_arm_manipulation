@@ -31,7 +31,7 @@ public class TouchTest : MonoBehaviour
         vertexNeighbors = FindVertexNeighbors(); // Build the neighbor map
     }
 
-    void Update()
+    void FixedUpdate()  // Use FixedUpdate for consistent physics updates
     {
         // Apply gravity and spring forces to vertices
         ApplyGravityAndSpringForces();
@@ -39,11 +39,7 @@ public class TouchTest : MonoBehaviour
         // If a vertex is pinned, continuously update its position to follow the gripper
         if (pinnedVertexIndex >= 0 && pinnedTransform != null)
         {
-            // Convert gripper's world position to local space of the plane
-            Vector3 localPoint = transform.InverseTransformPoint(pinnedTransform.position);
-
-            // Set the pinned vertex to follow the gripper's local position
-            vertices[pinnedVertexIndex] = localPoint;
+            UpdatePinnedVertex();  // Only update the pinned vertex
         }
 
         // Update the mesh after applying forces
@@ -52,33 +48,47 @@ public class TouchTest : MonoBehaviour
         planeMesh.RecalculateNormals();
     }
 
+    // Update the pinned vertex to follow the gripper's movement
+    void UpdatePinnedVertex()
+    {
+        // Convert gripper's world position to local space of the plane
+        Vector3 localPoint = transform.InverseTransformPoint(pinnedTransform.position);
+
+        // Calculate velocity of the pinned vertex based on its movement
+        Vector3 velocityOfPinned = (localPoint - vertices[pinnedVertexIndex]) / Time.deltaTime;
+
+        // Set the pinned vertex to follow the gripper's local position
+        velocities[pinnedVertexIndex] = velocityOfPinned; // Update velocity
+        vertices[pinnedVertexIndex] = localPoint; // Update the position
+
+        // DEBUG: Log the velocity of the pinned vertex
+        Debug.Log($"Pinned Vertex {pinnedVertexIndex} velocity: {velocityOfPinned}");
+    }
+
     void ApplyGravityAndSpringForces()
     {
         for (int i = 0; i < vertices.Length; i++)
         {
-            if (i != pinnedVertexIndex)
+            Vector3 worldPosVertex = transform.TransformPoint(vertices[i]); // Convert vertex to world space
+
+            // Only apply forces to vertices not above the box collider and to non-pinned vertices
+            if (!IsVertexAboveBox(worldPosVertex) && i != pinnedVertexIndex)
             {
-                Vector3 worldPosVertex = transform.TransformPoint(vertices[i]); // Convert vertex to world space
+                // Apply gravity to all non-pinned, non-box vertices
+                velocities[i] += new Vector3(0, gravity * Time.deltaTime, 0); // Add gravity to velocity
+                velocities[i] *= damping; // Apply damping to slow down motion
 
-                // Only apply forces to vertices not above the box collider
-                if (!IsVertexAboveBox(worldPosVertex))
+                // Apply spring force between the vertex and its neighbors
+                foreach (int neighborIndex in vertexNeighbors[i])
                 {
-                    // Apply gravity to all non-pinned, non-box vertices
-                    velocities[i] += new Vector3(0, gravity * Time.deltaTime, 0); // Add gravity to velocity
-                    velocities[i] *= damping; // Apply damping to slow down motion
-
-                    // Apply spring force between the vertex and its neighbors
-                    foreach (int neighborIndex in vertexNeighbors[i])
-                    {
-                        ApplySpringForce(i, neighborIndex);
-                    }
-
-                    // Cap the velocity to prevent extreme forces
-                    velocities[i] = Vector3.ClampMagnitude(velocities[i], maxVelocity);
-
-                    // Update the vertex position
-                    vertices[i] += velocities[i] * Time.deltaTime;
+                    ApplySpringForce(i, neighborIndex);
                 }
+
+                // Cap the velocity to prevent extreme forces
+                velocities[i] = Vector3.ClampMagnitude(velocities[i], maxVelocity);
+
+                // Update the vertex position
+                vertices[i] += velocities[i] * Time.deltaTime;
             }
         }
     }
@@ -150,14 +160,13 @@ public class TouchTest : MonoBehaviour
     // Trigger function for detecting when the robot gripper's trigger touches the plane
     void OnTriggerEnter(Collider other)
     {
-        // Print when the object first enters the trigger zone
         Debug.Log("Object entered trigger: " + other.gameObject.name);
 
-        // Get the contact point from the collider
         Vector3 contactPoint = other.ClosestPoint(transform.position);
+        Debug.Log("Contact point: " + contactPoint);
 
-        // Find and pin the closest vertex
         PinClosestVertex(contactPoint, other.transform);
+        Debug.Log("Pinned vertex index: " + pinnedVertexIndex);
     }
 
     void PinClosestVertex(Vector3 contactPoint, Transform gripperTransform)
@@ -167,7 +176,6 @@ public class TouchTest : MonoBehaviour
 
         for (int i = 0; i < vertices.Length; i++)
         {
-            // Convert the vertex to world space for proper distance calculation
             Vector3 worldPosVertex = transform.TransformPoint(vertices[i]);
             float distance = Vector3.Distance(contactPoint, worldPosVertex);
 
@@ -183,30 +191,17 @@ public class TouchTest : MonoBehaviour
         pinnedTransform = gripperTransform;
     }
 
-    // Trigger function for detecting when the robot gripper's trigger leaves the plane
     void OnTriggerExit(Collider other)
     {
         Debug.Log("Object exited trigger: " + other.gameObject.name);
 
-        // Reset the pinned vertex and transform
+        // Reset the pinned transform but DO NOT reset the pinned vertex position
         pinnedTransform = null;
 
-        if (pinnedVertexIndex >= 0)
-        {
-            // Reset the pinned vertex to its original position
-            vertices[pinnedVertexIndex] = originalVertices[pinnedVertexIndex];
-            pinnedVertexIndex = -1; // Unpin the vertex
-        }
+        // Unpin the vertex and allow it to fall under the influence of gravity and spring forces
+        pinnedVertexIndex = -1;
 
-        // Reset velocities
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            velocities[i] = Vector3.zero;
-        }
-
-        // Update the mesh to reset the pinned vertex position
-        planeMesh.vertices = vertices;
-        planeMesh.RecalculateBounds();
-        planeMesh.RecalculateNormals();
+        // The vertex will now be handled by gravity and the spring forces.
+        // No need to reset positions, let physics simulate the new folded shape naturally.
     }
 }

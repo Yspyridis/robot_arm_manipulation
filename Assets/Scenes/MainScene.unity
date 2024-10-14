@@ -4779,7 +4779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200386153520117647, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.48
+      value: 3.15
       objectReference: {fileID: 0}
     - target: {fileID: 5200386153520117647, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4787,7 +4787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200386153520117647, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.38
+      value: -6.8
       objectReference: {fileID: 0}
     - target: {fileID: 5200386153520117647, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4901,7 +4901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Finger: {fileID: 1573317058}
-  rotationAmount: 15
+  rotationAmount: 30
 --- !u!114 &1573317054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4915,7 +4915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForeArm: {fileID: 1573317057}
-  rotationAmount: 10
+  rotationAmount: 30
 --- !u!114 &1573317055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4929,7 +4929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpperArm: {fileID: 1573317056}
-  rotationAmount: 10
+  rotationAmount: 30
 --- !u!4 &1573317056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7595938759838015852, guid: 36e8b72b5db152a48a0a1c61daeca1e8, type: 3}
@@ -4958,7 +4958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Base: {fileID: 1573317056}
-  rotationAmount: -5
+  rotationAmount: -30
 --- !u!1 &1576915203
 GameObject:
   m_ObjectHideFlags: 0
