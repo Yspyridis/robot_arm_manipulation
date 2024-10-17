@@ -37,7 +37,13 @@ public class SmoothFoldMesh : MonoBehaviour
             {
                 // Calculate the mirrored position on the left side of the fold line.
                 float distanceToFoldLine = vertex.x - foldLineX;
-                foldedVertices[i] = new Vector3(foldLineX - distanceToFoldLine, vertex.y, vertex.z);
+                Debug.Log(distanceToFoldLine);
+
+                // Calculate a smooth y adjustment based on distance to fold line.
+                float yadjuster = CalculateYAdjuster(distanceToFoldLine);
+
+                // Apply the yadjuster and calculate folded position.
+                foldedVertices[i] = new Vector3(foldLineX - distanceToFoldLine, vertex.y + yadjuster, vertex.z);
             }
             else
             {
@@ -46,6 +52,18 @@ public class SmoothFoldMesh : MonoBehaviour
             }
         }
     }
+
+    // Function to calculate the y-adjustment based on distance from the fold line.
+    // Function to calculate the y-adjustment based on distance from the fold line.
+    private float CalculateYAdjuster(float distanceToFoldLine)
+    {
+        // Lower the height factor to reduce the vertical stretching
+        float foldHeightFactor = 1.4f; // Lower value to reduce the height stretching
+
+        // Return a more gradual adjustment based on distance to the fold line
+        return Mathf.Pow(distanceToFoldLine, 1.2f) * foldHeightFactor; 
+    }
+
 
     void Update()
     {
