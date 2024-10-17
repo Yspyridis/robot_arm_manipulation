@@ -407,6 +407,8 @@
 "Assets/Dummy.cs"
 "Assets/FingerController.cs"
 "Assets/FlyCamera.cs"
+"Assets/FoldAnimation.cs"
+"Assets/FoldMesh.cs"
 "Assets/ForeArmController.cs"
 "Assets/GripsController.cs"
 "Assets/PlaneGravity.cs"

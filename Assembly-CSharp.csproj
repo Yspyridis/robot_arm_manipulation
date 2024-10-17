@@ -72,10 +72,12 @@
     <Compile Include="Assets\Scripts\SmartStaticCollisionConstraint.cs" />
     <Compile Include="Assets\WorldMesh.cs" />
     <Compile Include="Assets\FingerController.cs" />
+    <Compile Include="Assets\FoldMesh.cs" />
     <Compile Include="Assets\BaseController.cs" />
     <Compile Include="Assets\Scripts\PointMass.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\ForeArmController.cs" />
+    <Compile Include="Assets\FoldAnimation.cs" />
     <Compile Include="Assets\GripsController.cs" />
     <Compile Include="Assets\Scripts\CCloth.cs" />
     <Compile Include="Assets\Scripts\CollisionConstraint.cs" />
@@ -93,6 +95,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\NewSurfaceShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
