@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmoothFoldMesh : MonoBehaviour
+public class FoldMesh : MonoBehaviour
 {
     public bool fold = false; // Toggle this to trigger the fold action.
     public float foldSpeed = 1.0f; // Speed of the fold action.
@@ -26,6 +26,7 @@ public class SmoothFoldMesh : MonoBehaviour
 
         // Calculate the fold line at the center of the mesh.
         foldLineX = (mesh.bounds.min.x + mesh.bounds.max.x) / 2f;
+        
 
         // Prepare the folded vertices by mirroring them relative to the fold line.
         for (int i = 0; i < originalVertices.Length; i++)
@@ -53,7 +54,6 @@ public class SmoothFoldMesh : MonoBehaviour
         }
     }
 
-    // Function to calculate the y-adjustment based on distance from the fold line.
     // Function to calculate the y-adjustment based on distance from the fold line.
     private float CalculateYAdjuster(float distanceToFoldLine)
     {
